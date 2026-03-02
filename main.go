@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	advancedfunctions "learning-go/topics/advanced-functions"
+	"learning-go/topics/advancedfunctions"
 	"learning-go/topics/channels"
 	"learning-go/topics/enums"
 	"learning-go/topics/errordemo"
