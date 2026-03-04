@@ -49,6 +49,9 @@ func main() {
 		{"Sprint — fmt (Sprint / Sprintf / Sprintln)", sprint.Run},
 		{"Enums", enums.Run},
 		{"Advanced functions", advancedfunctions.Run},
+		{"Function currying", advancedfunctions.RunCurrying},
+		{"Defer keyword", advancedfunctions.RunDefer},
+		{"CLosures", advancedfunctions.RunClosures},
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
