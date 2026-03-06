@@ -46,12 +46,14 @@ func main() {
 		{"Mutexes & Sync", mutexes.Run},
 		{"Generics", generics.Run},
 		{"Packages & Modules", pkgmodules.Run},
+		{"Slices sort", pkgmodules.RunSlicesSort},
 		{"Sprint — fmt (Sprint / Sprintf / Sprintln)", sprint.Run},
 		{"Enums", enums.Run},
 		{"Advanced functions", advancedfunctions.Run},
 		{"Function currying", advancedfunctions.RunCurrying},
 		{"Defer keyword", advancedfunctions.RunDefer},
-		{"CLosures", advancedfunctions.RunClosures},
+		{"Closures", advancedfunctions.RunClosures},
+		{"Anonymous functions", advancedfunctions.RunAnonymousFunctions},
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
