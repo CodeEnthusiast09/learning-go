@@ -1,3 +1,3 @@
-module learning-go/topics
+module go-topics
 
 go 1.25
