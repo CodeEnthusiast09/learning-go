@@ -47,11 +47,11 @@ func basicGoroutine() {
 	var wg sync.WaitGroup
 
 	wg.Go(func() {
-		fmt.Println("  Hello from a goroutine!")
+		fmt.Println("Hello from a goroutine!")
 	})
 
 	wg.Wait() // block here until all goroutines tracked by wg are done
-	fmt.Println("  Main continues after goroutine")
+	fmt.Println("Main continues after goroutine")
 }
 
 // ==============================================================
@@ -73,14 +73,14 @@ func unbufferedChannel() {
 	ch := make(chan string) // unbuffered channel of strings
 
 	go func() {
-		fmt.Println("  goroutine: about to send...")
+		fmt.Println("goroutine: about to send...")
 		ch <- "hello from goroutine" // BLOCKS here until main receives
-		fmt.Println("  goroutine: sent!")
+		fmt.Println("goroutine: sent!")
 	}()
 
 	time.Sleep(50 * time.Millisecond) // let goroutine start first
 	msg := <-ch                       // BLOCKS here until goroutine sends
-	fmt.Println("  main received:", msg)
+	fmt.Println("main received:", msg)
 }
 
 // ==============================================================
@@ -103,14 +103,14 @@ func bufferedChannel() {
 	ch <- 30
 	// ch <- 40 would BLOCK — buffer is full
 
-	fmt.Println("  receive 1:", <-ch) // 10
-	fmt.Println("  receive 2:", <-ch) // 20
-	fmt.Println("  receive 3:", <-ch) // 30
+	fmt.Println("receive 1:", <-ch) // 10
+	fmt.Println("receive 2:", <-ch) // 20
+	fmt.Println("receive 3:", <-ch) // 30
 
 	ch2 := make(chan int, 5)
 	ch2 <- 1
 	ch2 <- 2
-	fmt.Printf("  len (items in buffer): %d  cap (total buffer size): %d\n", len(ch2), cap(ch2))
+	fmt.Printf("len (items in buffer): %d  cap (total buffer size): %d\n", len(ch2), cap(ch2))
 }
 
 // ==============================================================
@@ -130,7 +130,7 @@ func producer(ch chan<- string) { // ONLY allowed to send
 
 func consumer(ch <-chan string) { // ONLY allowed to receive
 	msg := <-ch
-	fmt.Println("  consumer got:", msg)
+	fmt.Println("consumer got:", msg)
 }
 
 func directionalChannels() {
@@ -179,6 +179,7 @@ func selectStatement() {
 		time.Sleep(50 * time.Millisecond)
 		ch1 <- "from ch1"
 	}()
+
 	go func() {
 		time.Sleep(100 * time.Millisecond)
 		ch2 <- "from ch2"
@@ -187,9 +188,9 @@ func selectStatement() {
 	for i := 0; i < 2; i++ {
 		select {
 		case msg := <-ch1:
-			fmt.Println("  select picked:", msg)
+			fmt.Println("select picked:", msg)
 		case msg := <-ch2:
-			fmt.Println("  select picked:", msg)
+			fmt.Println("select picked:", msg)
 		}
 	}
 
@@ -197,9 +198,9 @@ func selectStatement() {
 	ch3 := make(chan int)
 	select {
 	case val := <-ch3:
-		fmt.Println("  got:", val)
+		fmt.Println("got:", val)
 	default:
-		fmt.Println("  nothing ready — default ran")
+		fmt.Println("nothing ready — default ran")
 	}
 }
 
@@ -218,7 +219,7 @@ func donePattern() {
 		for {
 			select {
 			case <-done:
-				fmt.Println("  worker: received stop signal, exiting")
+				fmt.Println("worker: received stop signal, exiting")
 				return
 			default:
 				time.Sleep(20 * time.Millisecond) // simulated work
@@ -251,7 +252,7 @@ func fanOut() {
 			defer wg.Done()
 			for job := range jobs { // each worker picks up jobs as they arrive
 				result := job * job
-				fmt.Printf("  worker %d: %d² = %d\n", workerID, job, result)
+				fmt.Printf("worker %d: %d² = %d\n", workerID, job, result)
 				results <- result
 			}
 		}(w)
@@ -274,5 +275,5 @@ func fanOut() {
 	for r := range results {
 		total += r
 	}
-	fmt.Println("  total of all squares:", total) // 1+4+9+16+25+36+49+64+81 = 285
+	fmt.Println("total of all squares:", total) // 1+4+9+16+25+36+49+64+81 = 285
 }
